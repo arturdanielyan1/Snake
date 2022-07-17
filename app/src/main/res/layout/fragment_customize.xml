@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".otherPages.CustomizeFragment">
+
+    <TextView
+        android:id="@+id/game_settings_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/game_settings"
+        android:textSize="36sp"
+
+        android:layout_margin="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/mps_ll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_margin="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/game_settings_title">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/delay_et"
+            android:textSize="20sp"/>
+
+        <EditText
+            android:id="@+id/delay_et"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <CheckBox
+        android:id="@+id/start_slower_cb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/start_slower_cb"
+
+        android:layout_margin="16dp"
+        app:layout_constraintTop_toBottomOf="@id/mps_ll"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/delay_decrement_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/decrement_tv"
+        android:layout_margin="16dp"
+        android:textSize="16sp"
+
+        app:layout_constraintTop_toBottomOf="@id/start_slower_cb"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <EditText
+        android:id="@+id/decrement_et"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:inputType="number"
+
+        android:layout_marginTop="30dp"
+
+        app:layout_constraintTop_toTopOf="@id/delay_decrement_tv"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/milliseconds"
+        android:layout_marginStart="16dp"
+
+        app:layout_constraintStart_toEndOf="@id/decrement_et"
+        app:layout_constraintTop_toTopOf="@id/decrement_et"
+        app:layout_constraintBottom_toBottomOf="@id/decrement_et"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,45 @@
+<resources>
+    <string name="app_name">Snake</string>
+    <!--    MENU ////////////////////////////////////////////////////////////////////////////////////////////////-->
+    <string name="play_button">Play</string>
+    <string name="settings_button">Settings</string>
+    <string name="maps_button">Maps</string>
+
+
+    <!--    GAME OVER ////////////////////////////////////////////////////////////////////////////////////////////////-->
+    <string name="try_again_button">Try Again</string>
+    <string name="main_menu_button">Main Menu</string>
+    <string name="select_map_button">Select</string>
+    <string name="game_over">Game Over</string>
+
+    <!--    SELECT MAP ////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+    <string name="select_map">Select Map</string>
+    <string name="height_et">Height:</string>
+    <string name="width_et">Width:</string>
+
+    <string name="max_field_toast">Max field size is 50×50</string>
+    <string name="invalid_height">Field height is set to 5</string>
+    <string name="invalid_width">Field height is set to 5</string>
+    <string name="invalid_field_size">Field size is set to 5×5</string>
+    <string name="map_selected_toast">Map selected</string>
+
+    <!--    CUSTOMIZE ////////////////////////////////////////////////////////////////////////////////////////////////-->
+    <string name="game_settings">Game settings</string>
+    <string name="delay_et">Moves per second</string>
+    <string name="max_step_per_move">Step per move can\'t be more than 10</string>
+    <string name="start_slower_cb">Gradually speed up</string>
+    <string name="decrement_tv">Step delay decrement per food (3–50)</string>
+    <string name="decrement_min">Delay decrement is put to 3</string>
+    <string name="milliseconds">Milliseconds</string>
+
+    <!--    GAME ////////////////////////////////////////////////////////////////////////////////////////////////-->
+    <string name="best_score_tv">BEST SCORE: %1$s</string>
+    <string name="score_tv">SCORE: %1$s</string>
+
+    <!--    MAPS ////////////////////////////////////////////////////////////////////////////////////////////////-->
+    <string-array name="maps_array">
+        <item>Default</item>
+        <item>Box</item>
+    </string-array>
+</resources>
