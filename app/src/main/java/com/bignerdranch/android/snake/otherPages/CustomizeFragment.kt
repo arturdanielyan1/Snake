@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import com.bignerdranch.android.snake.R
+import com.bignerdranch.android.snake.database.InfoViewModel
 import com.bignerdranch.android.snake.main.log
 import com.bignerdranch.android.snake.main.stepDelay
 import com.bignerdranch.android.snake.main.stepDelayDecrement
@@ -23,6 +24,9 @@ class CustomizeFragment : Fragment()/*, AdapterView.OnItemSelectedListener*/ {
     private lateinit var delayEt: EditText
     private lateinit var startSlowerCb: CheckBox
     private lateinit var decrementEt: EditText
+
+    private lateinit var infoViewModel: InfoViewModel
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_customize, container, false)

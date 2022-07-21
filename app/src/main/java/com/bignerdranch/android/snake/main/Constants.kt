@@ -20,11 +20,11 @@ const val isWaiting = true
 var stepDelayDecrement = 3
 
 //BEST SCORE
-var bestScore = 0
+var localBestScore = 0
 var currentScore = 0
 
 
-inline fun log(string: String) = Log.d(LOG_TAG, string)
+inline fun log(string: String?) = Log.d(LOG_TAG, string ?: "null")
 
 
 // FIELD STUFF
@@ -35,6 +35,7 @@ val mapNames = arrayOf("Default", "Box", "Yerevan")
 
 lateinit var selectedMap: ArrayList<ArrayList<Int>>
 var selectedMapIndex: Int = 0
+
 
 val defaultMap: ArrayList<ArrayList<Int>>
     get() = ArrayList<ArrayList<Int>>().apply {

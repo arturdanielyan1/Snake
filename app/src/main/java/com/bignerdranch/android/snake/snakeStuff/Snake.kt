@@ -74,7 +74,6 @@ object Snake {
             Food.position = Food.getRandomCoordinates()
         }
 
-
         isInMove = false
         synchronized(isInMove) {
             (isInMove as Object).notifyAll()

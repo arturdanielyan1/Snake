@@ -9,10 +9,8 @@ import android.widget.Button
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import com.bignerdranch.android.snake.R
-import com.bignerdranch.android.snake.main.FragmentLauncher
-import com.bignerdranch.android.snake.main.GAME_FRAGMENT
-import com.bignerdranch.android.snake.main.bestScore
-import com.bignerdranch.android.snake.main.currentScore
+import com.bignerdranch.android.snake.database.InfoViewModel
+import com.bignerdranch.android.snake.main.*
 
 class GameOverFragment : DialogFragment(), View.OnClickListener {
 
@@ -26,10 +24,19 @@ class GameOverFragment : DialogFragment(), View.OnClickListener {
     private lateinit var tryAgainButton: Button
     private lateinit var mainMenuButton: Button
 
+    private lateinit var viewModel: InfoViewModel
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel = (activity as SharedViewModel).getViewModel()
         isCancelable = false
-        if(currentScore > bestScore) bestScore = currentScore
+        if(currentScore >= localBestScore){
+            localBestScore = currentScore
+            viewModel.changeBestScore(localBestScore)
+        }
+        log("GameOver current score is $currentScore")
+        viewModel.changeLastScore(currentScore)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -52,10 +59,6 @@ class GameOverFragment : DialogFragment(), View.OnClickListener {
             }
         }
         activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
-    }
-
-    override fun setRetainInstance(retain: Boolean) {
-        super.setRetainInstance(retain)
     }
 
     override fun onAttach(context: Context) {

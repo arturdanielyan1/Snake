@@ -3,7 +3,6 @@ package com.bignerdranch.android.snake.game
 import android.content.Context
 import android.os.Bundle
 import android.view.Gravity
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,26 +11,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.content.res.ResourcesCompat
-import com.bignerdranch.android.snake.*
+import androidx.fragment.app.Fragment
+import com.bignerdranch.android.snake.R
+import com.bignerdranch.android.snake.database.InfoViewModel
 import com.bignerdranch.android.snake.main.*
 import com.bignerdranch.android.snake.snakeStuff.Direction
 import com.bignerdranch.android.snake.snakeStuff.Snake
-import org.w3c.dom.Text
 
 
 class GameFragment : Fragment(), View.OnClickListener {
-
-
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        fragmentLauncher = activity as FragmentLauncher
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        fragmentLauncher = null
-    }
 
     companion object {
         @JvmStatic private var fragmentLauncher: FragmentLauncher? = null
@@ -57,11 +45,34 @@ class GameFragment : Fragment(), View.OnClickListener {
         var gameRunner: Thread? = null
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        fragmentLauncher = activity as FragmentLauncher
+        viewModel = (activity as SharedViewModel).getViewModel()
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        fragmentLauncher = null
+    }
+
+
     private lateinit var gameLinear: LinearLayoutCompat
     private lateinit var scoreTv: TextView
+    private lateinit var bestScoreTv: TextView
+
+    private lateinit var viewModel: InfoViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-//        super.onCreateView(inflater, container, savedInstanceState)
+        super.onCreateView(inflater, container, savedInstanceState)
+
+        currentScore = 0
+        viewModel.height.observe(viewLifecycleOwner) { height: Int? ->
+            FIELD_HEIGHT = height!!
+        }
+        viewModel.width.observe(viewLifecycleOwner) { width: Int? ->
+            FIELD_WIDTH = width!!
+        }
 
         log("gameFragment onnCreateView")
         log(screenHeight.toString())
@@ -105,11 +116,12 @@ class GameFragment : Fragment(), View.OnClickListener {
         }
 
 
-
         val scoreIndicator = layoutInflater.inflate(R.layout.score_indicator, mainLinear)
         scoreTv = scoreIndicator.findViewById(R.id.score_tv)
-        /** BEST SCORE NOT IMPLEMENTED YET **/
+        bestScoreTv = scoreIndicator.findViewById(R.id.best_score_tv)
+
         scoreTv.text = "0"
+        bestScoreTv.text = getString(R.string.best_score_tv, localBestScore.toString())
 
         mainLinear.addView(gameLinear)
 
@@ -121,12 +133,19 @@ class GameFragment : Fragment(), View.OnClickListener {
         /*val rightButton = */controlButtons.findViewById<AppCompatImageButton>(R.id.right_button).apply { setOnClickListener(this@GameFragment) }
         /*val leftButton = */controlButtons.findViewById<AppCompatImageButton>(R.id.left_button).apply { setOnClickListener(this@GameFragment) }
 
-        gameRunner = Thread(GameRunner(activity as AppCompatActivity, ::render, ::updateScore)).apply { start() }
+        gameRunner = Thread(GameRunner(activity as AppCompatActivity, ::render, ::updateScore, ::updateBestScore)).apply { start() }
         return mainLinear
     }
 
     private fun updateScore() {
         scoreTv.text = getString(R.string.score_tv, currentScore.toString())
+    }
+
+    private fun updateBestScore() {
+        if(currentScore > localBestScore) {
+            localBestScore = currentScore
+            bestScoreTv.text = getString(R.string.best_score_tv, localBestScore.toString())
+        }
     }
 
 
@@ -161,6 +180,7 @@ class GameFragment : Fragment(), View.OnClickListener {
 
     private var onClickThreadInstance = OnClickThread(null)
 
+    @Suppress("PLATFORM_CLASS_MAPPED_TO_KOTLIN")
     private class OnClickThread(var v: View?) : Thread() {
         override fun run() {
             when(v?.id) {
