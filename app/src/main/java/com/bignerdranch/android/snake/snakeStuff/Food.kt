@@ -23,7 +23,7 @@ object Food {
             0
         }else trace.size-length-2
 
-        return if(selectedMap[coordinates.y][coordinates.x] == 1 || selectedMap[coordinates.y][coordinates.x] == 4){
+        return if(selectedMap[coordinates.y][coordinates.x] == 1 || selectedMap[coordinates.y][coordinates.x] == 4 || selectedMap[coordinates.y][coordinates.x] == 5){
             getRandomCoordinates()//41 19
         }else coordinates
     }

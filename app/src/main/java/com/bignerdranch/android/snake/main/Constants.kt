@@ -32,7 +32,7 @@ inline fun log(string: String?) = Log.d(LOG_TAG, string ?: "null")
 var FIELD_WIDTH = 15
 var FIELD_HEIGHT = 15
 
-val mapNames = arrayOf("Default", "Box", "Yerevan", "Moscow")
+val mapNames = arrayOf("Default", "Box", "Yerevan", "Moscow", "Oslo", "Stockholm")
 
 lateinit var selectedMap: ArrayList<ArrayList<Int>>
 var selectedMapIndex: Int = 0
@@ -62,18 +62,21 @@ val boxMap: ArrayList<ArrayList<Int>>
 fun clearField() {
 //    selectedMap = (mapIndexToMatrix[selectedMapIndex]!!).cloneMap()
     if(selectedMapIndex == 0) {
+        log("clearField дефаулт map")
         Snake.headPos = Coordinates(FIELD_WIDTH /2, FIELD_HEIGHT /2)
         selectedMap = defaultMap.cloneMap()
         return
     } else if (selectedMapIndex == 1) {
+        log("clearField box map")
         Snake.headPos = Coordinates(FIELD_WIDTH /2, FIELD_HEIGHT /2)
         selectedMap = boxMap.cloneMap()
         return
     }
 
 //    if (selectedMapIndex == 2) {
-        selectedMap = mapIndexToMatrix[selectedMapIndex]!!.get().cloneMap()
-        Snake.headPos = Coordinates(0,0)
+    selectedMap = mapIndexToMatrix[selectedMapIndex]!!.get().cloneMap()
+    Snake.headPos = Coordinates(0,0)
+    log("clearField capital map")
 //    }
 }
 
@@ -82,20 +85,26 @@ val toColor = mapOf(
     1 to R.color.snake_body,
     2 to R.color.food,
     3 to R.drawable.crash,
-    4 to R.color.wall
+    4 to R.color.wall,
+    5 to R.color.ground // unreachable zone
 )
 
 val mapIndexToImg = mapOf(
     0 to R.drawable.map_preview_default,
     1 to R.drawable.map_preview_box,
-    2 to R.drawable.map_preview_yerevan
+    2 to R.drawable.map_preview_yerevan,
+    3 to R.drawable.map_preview_mocow,
+    4 to R.drawable.map_preview_oslo,
+    5 to R.drawable.map_preview_stockholm
 )
 
 val mapIndexToMatrix = mapOf(
     0 to ::defaultMap,
     1 to ::boxMap,
     2 to ::yerevanMap,
-    3 to ::moscowMap
+    3 to ::moscowMap,
+    4 to ::osloMap,
+    5 to ::stockholmMap
 )
 
 fun ArrayList<ArrayList<Int>>.cloneMap(): ArrayList<ArrayList<Int>> {

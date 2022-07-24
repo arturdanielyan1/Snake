@@ -57,7 +57,7 @@ class SettingsFragment : Fragment() {
 
                 if(newValue > 10){
                     setText("10")
-                    Toast.makeText(activity, R.string.max_step_per_move, Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(activity, R.string.max_step_per_move, Toast.LENGTH_SHORT).show()
                 }else {
                     stepDelay = 1000 / newValue.toLong()
                 }

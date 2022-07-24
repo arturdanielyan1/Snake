@@ -166,12 +166,12 @@ class MapsFragment : Fragment()/*, View.OnClickListener*/ {
             FIELD_HEIGHT = mapIndexToMatrix[currentViewingMapIndex]!!.get().size
             FIELD_WIDTH = mapIndexToMatrix[currentViewingMapIndex]!!.get()[0].size
         }else {
-            FIELD_HEIGHT = heightEt.text.toString().toInt()
-            FIELD_WIDTH = widthEt.text.toString().toInt()
-            viewModel.changeHeight(FIELD_HEIGHT)
-            viewModel.changeWidth(FIELD_WIDTH)
+//            FIELD_HEIGHT = heightEt.text.toString().toInt()
+//            FIELD_WIDTH = widthEt.text.toString().toInt()
             log("MapsFragment onDestroy width: $FIELD_WIDTH, height: $FIELD_HEIGHT")
         }
+        viewModel.changeHeight(FIELD_HEIGHT)
+        viewModel.changeWidth(FIELD_WIDTH)
 
         selectedMapIndex = currentViewingMapIndex
         viewModel.changeMapIndex(selectedMapIndex)
