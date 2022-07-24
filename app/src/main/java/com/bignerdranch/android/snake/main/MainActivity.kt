@@ -6,12 +6,11 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 import com.bignerdranch.android.snake.R
-import com.bignerdranch.android.snake.database.Entity
 import com.bignerdranch.android.snake.database.InfoApplication
 import com.bignerdranch.android.snake.database.InfoViewModel
 import com.bignerdranch.android.snake.game.GameFragment
 import com.bignerdranch.android.snake.maps.MapsFragment
-import com.bignerdranch.android.snake.otherPages.CustomizeFragment
+import com.bignerdranch.android.snake.otherPages.SettingsFragment
 import com.bignerdranch.android.snake.otherPages.GameOverFragment
 import com.bignerdranch.android.snake.otherPages.MenuFragment
 
@@ -64,6 +63,27 @@ class MainActivity : AppCompatActivity(), FragmentLauncher, SharedViewModel {
                 } catch (npe: NullPointerException) {}
             }
 
+            mps.observe(this@MainActivity) { mps: Int? ->
+                log("observe mps $mps")
+                try {
+                    stepDelay = 1000 / mps!!.toLong()
+                } catch (npe: NullPointerException) {}
+            }
+
+            isSpeedingUp.observe(this@MainActivity) { speedingUp: Boolean? ->
+                log("observe isSpeedingUp $isSpeedingUp")
+                try {
+                    if(speedingUp!!) stepDelayDecrement = 0
+                    stepDelay = 500
+                } catch (npe: NullPointerException) {}
+            }
+
+            speedUpMillis.observe(this@MainActivity) { speedUpMillis: Int? ->
+                log("observe speedUpMillis $speedUpMillis")
+                try {
+                    stepDelayDecrement = speedUpMillis!!
+                } catch (npe: NullPointerException) {}
+            }
 
         }
 
@@ -101,7 +121,7 @@ class MainActivity : AppCompatActivity(), FragmentLauncher, SharedViewModel {
         val manager = supportFragmentManager
         val transaction = manager.beginTransaction()
         transaction.addToBackStack(null)
-        transaction.replace(R.id.fragment_container, CustomizeFragment.newInstance()).commit()
+        transaction.replace(R.id.fragment_container, SettingsFragment.newInstance()).commit()
     }
 
     private fun addMapFragment() {

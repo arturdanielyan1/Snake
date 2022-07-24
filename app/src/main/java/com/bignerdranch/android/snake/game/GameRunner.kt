@@ -20,11 +20,12 @@ class GameRunner(private val activity: AppCompatActivity,
         while (true) {
             Snake.move()
             CleanerTail.clear()
-            log("gameRunner")
-            activity.runOnUiThread(render)
-            activity.runOnUiThread(updateScore)
-            activity.runOnUiThread(updateBestScore)
+            log("gameRunner $stepDelay")
             try {
+                activity.runOnUiThread(render)
+                activity.runOnUiThread(updateScore)
+                activity.runOnUiThread(updateBestScore)
+
                 Thread.sleep(stepDelay)
             } catch (e: InterruptedException) {
                 break

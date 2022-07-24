@@ -9,8 +9,9 @@
     <!--    GAME OVER ////////////////////////////////////////////////////////////////////////////////////////////////-->
     <string name="try_again_button">Try Again</string>
     <string name="main_menu_button">Main Menu</string>
-    <string name="select_map_button">Select</string>
     <string name="game_over">Game Over</string>
+    <string name="go_score_tv">Score: %1$s</string>
+    <string name="go_best_score_tv">Best: %1$s</string>
 
     <!--    SELECT MAP ////////////////////////////////////////////////////////////////////////////////////////////////-->
 
@@ -26,7 +27,7 @@
 
     <!--    CUSTOMIZE ////////////////////////////////////////////////////////////////////////////////////////////////-->
     <string name="game_settings">Game settings</string>
-    <string name="delay_et">Moves per second</string>
+    <string name="mps_et">Moves per second (1–10):</string>
     <string name="max_step_per_move">Step per move can\'t be more than 10</string>
     <string name="start_slower_cb">Gradually speed up</string>
     <string name="decrement_tv">Step delay decrement per food (3–50)</string>

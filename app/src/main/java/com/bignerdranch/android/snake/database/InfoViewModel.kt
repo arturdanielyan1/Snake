@@ -1,6 +1,5 @@
 package com.bignerdranch.android.snake.database
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -15,6 +14,11 @@ class InfoViewModel(private val repository: InfoRepository) : ViewModel() {
     val mapIndex: LiveData<Int?> = repository.getMapIndex()
     val bestScore: LiveData<Int?> = repository.getBestScore()
     val lastScore: LiveData<Int?> = repository.getLastScore()
+
+    //DB V2
+    val mps: LiveData<Int?> = repository.getMPS()
+    val isSpeedingUp: LiveData<Boolean?> = repository.isSpeedingUp()
+    val speedUpMillis: LiveData<Int?> = repository.getSpeedUpMillis()
 
 
     fun changeMapIndex(index: Int) = viewModelScope.launch(Dispatchers.IO) {
@@ -38,9 +42,18 @@ class InfoViewModel(private val repository: InfoRepository) : ViewModel() {
         repository.changeLastScore(lastScore)
     }
 
-    fun changeInfo(info: Entity) = viewModelScope.launch(Dispatchers.IO) {
-        Log.d("myLogs","viewModel change info thread ${Thread.currentThread().name}")
-        repository.changeInfo(info)
+    // DB V2 //////////////////////////////////////////////////////////////////////////////////
+
+    fun changeMPS(mps: Int) = viewModelScope.launch(Dispatchers.IO) {
+        repository.changeMPS(mps)
+    }
+
+    fun changeIsSpeedingUp(isSpeedingUp: Boolean) = viewModelScope.launch(Dispatchers.IO) {
+        repository.changeIsSpeedingUp(isSpeedingUp)
+    }
+
+    fun changeSpeedUpMillis(speedUpMillis: Int) = viewModelScope.launch(Dispatchers.IO) {
+        repository.changeSpeedUpMillis(speedUpMillis)
     }
 
 

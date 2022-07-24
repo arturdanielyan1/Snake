@@ -67,11 +67,16 @@ class GameFragment : Fragment(), View.OnClickListener {
         super.onCreateView(inflater, container, savedInstanceState)
 
         currentScore = 0
-        viewModel.height.observe(viewLifecycleOwner) { height: Int? ->
-            FIELD_HEIGHT = height!!
-        }
-        viewModel.width.observe(viewLifecycleOwner) { width: Int? ->
-            FIELD_WIDTH = width!!
+        if(selectedMapIndex == 0 || selectedMapIndex == 1) {
+            viewModel.height.observe(viewLifecycleOwner) { height: Int? ->
+                FIELD_HEIGHT = height!!
+            }
+            viewModel.width.observe(viewLifecycleOwner) { width: Int? ->
+                FIELD_WIDTH = width!!
+            }
+        } else {
+            FIELD_WIDTH = mapIndexToMatrix[selectedMapIndex]!!.get()[0].size
+            FIELD_HEIGHT = mapIndexToMatrix[selectedMapIndex]!!.get().size
         }
 
         log("gameFragment onnCreateView")

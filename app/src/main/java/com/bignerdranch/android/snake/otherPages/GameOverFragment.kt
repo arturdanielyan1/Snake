@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import com.bignerdranch.android.snake.R
@@ -46,6 +47,8 @@ class GameOverFragment : DialogFragment(), View.OnClickListener {
     override fun onViewCreated(v: View, savedInstanceState: Bundle?) {
         tryAgainButton = v.findViewById<Button>(R.id.try_again_button).apply { setOnClickListener(this@GameOverFragment) }
         mainMenuButton = v.findViewById<Button>(R.id.main_menu_button).apply { setOnClickListener(this@GameOverFragment) }
+        v.findViewById<TextView>(R.id.go_score_tv).text = getString(R.string.go_score_tv, currentScore.toString())
+        v.findViewById<TextView>(R.id.go_best_score_tv).text = getString(R.string.go_best_score_tv, localBestScore.toString())
     }
 
     override fun onClick(v: View?) {

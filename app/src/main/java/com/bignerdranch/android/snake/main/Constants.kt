@@ -19,10 +19,11 @@ const val isWaiting = true
 
 var stepDelayDecrement = 3
 
-//BEST SCORE
+//SCORE
 var localBestScore = 0
 var currentScore = 0
 
+var lastScore = 0
 
 inline fun log(string: String?) = Log.d(LOG_TAG, string ?: "null")
 
@@ -31,7 +32,7 @@ inline fun log(string: String?) = Log.d(LOG_TAG, string ?: "null")
 var FIELD_WIDTH = 15
 var FIELD_HEIGHT = 15
 
-val mapNames = arrayOf("Default", "Box", "Yerevan")
+val mapNames = arrayOf("Default", "Box", "Yerevan", "Moscow")
 
 lateinit var selectedMap: ArrayList<ArrayList<Int>>
 var selectedMapIndex: Int = 0
@@ -57,28 +58,6 @@ val boxMap: ArrayList<ArrayList<Int>>
         })
     }
 
-val yerevanMap = arrayListOf<ArrayList<Int>>(
-    arrayListOf(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),
-    arrayListOf(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),
-    arrayListOf(0,0,4,4,4,0,0,4,4,4,4,4,4,0,0,4,4,4,0,0),
-    arrayListOf(0,0,4,4,4,0,0,4,4,4,4,4,4,0,0,4,4,4,0,0),
-    arrayListOf(0,0,4,4,4,0,0,4,0,0,0,0,4,0,0,4,4,4,0,0),
-    arrayListOf(0,0,4,4,4,0,0,4,0,0,0,0,4,0,0,4,4,4,0,0),
-    arrayListOf(0,0,4,4,0,0,0,0,0,0,0,0,0,0,0,4,4,4,0,0),
-    arrayListOf(0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4,0,0),
-    arrayListOf(0,0,0,0,0,0,0,0,0,4,4,0,0,0,0,0,4,4,0,0),
-    arrayListOf(0,0,0,0,0,0,0,4,4,4,4,4,4,0,0,0,0,4,0,0),
-    arrayListOf(0,0,0,0,0,0,4,4,4,4,4,4,4,4,0,0,0,4,0,0),
-    arrayListOf(0,0,0,0,0,0,0,4,4,4,4,4,4,0,0,0,0,0,0,0),
-    arrayListOf(0,0,4,0,0,0,0,0,0,4,4,0,0,0,0,0,0,0,0,0),
-    arrayListOf(0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0),
-    arrayListOf(0,0,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0),
-    arrayListOf(0,0,4,4,4,0,0,4,4,4,4,4,4,0,0,0,4,4,0,0),
-    arrayListOf(0,0,4,4,4,0,0,4,4,4,4,4,4,0,0,4,4,4,0,0),
-    arrayListOf(0,0,4,4,4,0,0,4,4,4,4,4,4,0,0,4,4,4,0,0),
-    arrayListOf(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),
-    arrayListOf(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
-)
 
 fun clearField() {
 //    selectedMap = (mapIndexToMatrix[selectedMapIndex]!!).cloneMap()
@@ -92,10 +71,10 @@ fun clearField() {
         return
     }
 
-    if (selectedMapIndex == 2) {
-        selectedMap = yerevanMap.cloneMap()
+//    if (selectedMapIndex == 2) {
+        selectedMap = mapIndexToMatrix[selectedMapIndex]!!.get().cloneMap()
         Snake.headPos = Coordinates(0,0)
-    }
+//    }
 }
 
 val toColor = mapOf(
@@ -115,9 +94,9 @@ val mapIndexToImg = mapOf(
 val mapIndexToMatrix = mapOf(
     0 to ::defaultMap,
     1 to ::boxMap,
-    2 to ::yerevanMap
+    2 to ::yerevanMap,
+    3 to ::moscowMap
 )
-
 
 fun ArrayList<ArrayList<Int>>.cloneMap(): ArrayList<ArrayList<Int>> {
     val result: ArrayList<ArrayList<Int>> = ArrayList()
@@ -129,8 +108,8 @@ fun ArrayList<ArrayList<Int>>.cloneMap(): ArrayList<ArrayList<Int>> {
 }
 
 // PX DP CONVERSIONS
-val Int.toDp
-    get() = (this / Resources.getSystem().displayMetrics.density).toInt()
+//val Int.toDp
+//    get() = (this / Resources.getSystem().displayMetrics.density).toInt()
 
 val Int.toPx
     get() = (this * Resources.getSystem().displayMetrics.density).toInt()
